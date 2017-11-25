@@ -20,7 +20,7 @@ SYSTEM_THREAD(ENABLED);
 
 // IMPORTANT: Set pixel COUNT, PIN and TYPE
 #define PIXEL_PIN D4
-#define PIXEL_COUNT 25
+#define PIXEL_COUNT 50
 #define PIXEL_TYPE WS2812B
 
 /* ======================= prototypes =============================== */
@@ -63,9 +63,9 @@ void loop() {
 
       //colorWipe(strip.Color(0, 0, 255), 50); // Blue
 
-      rainbow(20);
+      //rainbow(20);
 
-      //rainbowCycle(20);
+      rainbowCycle(20);
 
       //colorAll(strip.Color(0, 255, 255), 50); // Cyan
     }
@@ -134,6 +134,9 @@ void rainbowCycle(uint8_t wait) {
   for(j=0; j<256; j++) { // 1 cycle of all colors on wheel
     for(i=0; i< strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel(((i * 256 / strip.numPixels()) + j) & 255));
+      if(!npState) {
+        break;
+      }
     }
     strip.show();
     delay(wait);
